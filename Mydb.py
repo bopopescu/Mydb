@@ -157,9 +157,18 @@ class Mydb():
 
 		return result
 	def get_deadlock(self):
-		pass
-	def get_event_wait(self):
-		pass
+		result={}
+		sql="SELECT R.TRX_ID WAITING_TRX_ID,R.TRX_MYSQL_THREAD_ID WAITING_THREAD,R.TRX_QUERY WAITING_QUERY,B.TRX_ID BLOCKING_TRX_ID,B.TRX_MYSQL_THREAD_ID BLOCKING_THREAD,B.TRX_QUERY BLOCKING_QUERY FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS W INNER JOIN INFORMATION_SCHEMA.INNODB_TRX B ON B.TRX_ID=W.BLOCKING_TRX_ID INNER JOIN INFORMATION_SCHEMA.INNODB_TRX R ON R.TRX_ID=W.REQUESTING_TRX_ID;"
+		self.cur.execute(sql)
+		res=self.cur.fetchall()
+		result['Waiting_Trx_Id']=res[0].get('WAITING_TRX_ID')
+		result['Waiting_Thread']=res[0].get('WAITING_THREAD')
+		result['Waiting_Query']=res[0].get('WAITING_QUERY')
+		result['Blocking_Trx_Id']=res[0].get('BLOCKING_TRX_ID')
+		result['Blocking_Thread']=res[0].get('Blocking_THREAD')
+		result['Blocking_Query']=res[0].get('Blocking_QUERY')
+		return result
+
 	def conn_close(self):
 		self.cur.close()
 		self.conn.close()
