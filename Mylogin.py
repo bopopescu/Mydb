@@ -92,7 +92,7 @@ class Mylogin():
 
 '''
 hostlist='127.0.0.1-127.0.0.7'
-my=Mylogin(hostlist,5888,'root','uuq5hqja','uname -r','/tmp/res1213.txt')
+my=Mylogin(hostlist,5888,'root','123456789','uname -r','/tmp/res1213.txt')
 my.login_netrange()
 my.close()
 '''
