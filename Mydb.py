@@ -142,18 +142,18 @@ class Mydb():
 		ratios['TMP_TABLE_RATIOS']='%.2f'%(int(res['CREATED_TMP_DISK_TABLES'])/int(res['CREATED_TMP_TABLES']))
 
 		return ratios
-	def get_slave_status(self):
+	def get_subordinate_status(self):
 		result={}
-		sql="show slave status;"
+		sql="show subordinate status;"
 		self.cur.execute(sql)
 		res=self.cur.fetchall()
-		result['Slave_SQL_Running']=res[0].get('Slave_SQL_Running')
-		result['Slave_IO_Running']=res[0].get('Slave_IO_Running')
-		result['Seconds_Behind_Master']=res[0].get('Seconds_Behind_Master')
+		result['Subordinate_SQL_Running']=res[0].get('Subordinate_SQL_Running')
+		result['Subordinate_IO_Running']=res[0].get('Subordinate_IO_Running')
+		result['Seconds_Behind_Main']=res[0].get('Seconds_Behind_Main')
 		result['Last_Error']=res[0].get('Last_Error')
 		result['Last_Errno']=res[0].get('Last_Errno')
-		result['Master_Host']=res[0].get('Master_Host')
-		result['Master_Port']=res[0].get('Master_Port')
+		result['Main_Host']=res[0].get('Main_Host')
+		result['Main_Port']=res[0].get('Main_Port')
 
 		return result
 	def get_deadlock(self):
